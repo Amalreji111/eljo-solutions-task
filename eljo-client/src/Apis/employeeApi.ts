@@ -11,6 +11,10 @@ export class EmployeeApi {
         return await API.get({slug:Slug.DETAIL_EMPLOYEE,queryParameters:{id}})
     }
 
+    public static async deleteEmployee(id:string){
+        return await API.delete({slug:Slug.DETAIL_EMPLOYEE,queryParameters:{id}})
+    }
+
     public static async updateEmployee(updateRequest:employeeUpdate){
         return await API.put({slug:Slug.UPDATE_EMPLOYEE,body:updateRequest})
     }

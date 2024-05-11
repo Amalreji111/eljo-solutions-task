@@ -9,6 +9,7 @@ export enum  Slug {
     REGISTER_EMPLOYEE = `${Slug.USER}/register-employee`,
     UPDATE_EMPLOYEE = `${Slug.EMPLOYEE}/update`,
     LIST_EMPLOYEE = `${Slug.EMPLOYEE}/list`,
-    DETAIL_EMPLOYEE = `${Slug.EMPLOYEE}/detail`
+    DETAIL_EMPLOYEE = `${Slug.EMPLOYEE}/detail`,
+    DELETE_EMPLOYEE = `${Slug.EMPLOYEE}/`
 
   }

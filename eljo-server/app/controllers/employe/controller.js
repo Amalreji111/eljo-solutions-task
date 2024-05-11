@@ -185,5 +185,45 @@ function update (req,res){
         })   
     }
 }
+async function deleteEmployee(req,res){
+    try {
+        const {id}=req.query
+        const employee = await prisma.employeeDetails.delete({
+            where:{
+                id:Number(id)
+            },
+            include:{
+                user:true
+            }
+        })
 
-module.exports = {list,detail,update}
+        if(!employee){
+            return Response.bad_request(res,{
+                message:"Employee not found"
+            })
+        }
+
+        const user = await prisma.user.delete({
+            where:{
+                id:employee.user.id
+            }
+        })
+
+
+
+        return Response.success(res,{
+            message:"Successfully deleted",
+            data:employee
+        })
+        
+    } catch (error) {
+
+        console.log(error)
+        return Response.internal_server_error(res,{
+            message:"Something went wrong"
+        })  
+        
+    }
+}
+
+module.exports = {list,detail,update,deleteEmployee}
