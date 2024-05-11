@@ -1,13 +1,10 @@
 import { useForm, isEmail } from '@mantine/form';
-import { Box, Button, Flex, Group, TextInput } from '@mantine/core';
-import { validatePassword } from '../utils/utils';
+import { Button, Flex, Group, TextInput } from '@mantine/core';
 import { UserApi } from '../Apis/userApi';
 import { LocalstorageKeys } from '../enums/enum';
-import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 
 function Login() {
-  const navigate = useNavigate()
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {

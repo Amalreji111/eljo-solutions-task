@@ -1,12 +1,11 @@
-import { Box, Button, Flex, TextInput } from "@mantine/core";
+import { Button, Flex, TextInput } from "@mantine/core";
 import { isEmail, useForm } from "@mantine/form";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { validatePassword, validatePhoneNumber } from "../utils/utils";
+import {  useParams } from "react-router-dom";
+import { validatePhoneNumber } from "../utils/utils";
 import DepartmentSelect from "../components/Department";
 import { useEffect, useState } from "react";
-import { UserApi } from "../Apis/userApi";
 import { EmployeeApi } from "../Apis/employeeApi";
-import { Path, UserRole } from "../enums/enum";
+import { UserRole } from "../enums/enum";
 import { employeeDetailResponse } from "../Types/api-payload";
 import { notifications } from "@mantine/notifications";
 type Params = {
@@ -14,7 +13,6 @@ type Params = {
 }
 function ModifyEmployee() {
   let param = useParams<Params>();
-  const navigate = useNavigate()
   const [userDetails , setUserDetails] = useState<employeeDetailResponse>({
     id:'',
     user: {
@@ -107,7 +105,7 @@ function ModifyEmployee() {
     console.log(values,"Submit")
     try {
 
-      const response =await EmployeeApi.updateEmployee(values)
+      await EmployeeApi.updateEmployee(values)
       // navigate(`${Path.HOME}`)
       
     }catch (error:any) {

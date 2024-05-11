@@ -1,5 +1,4 @@
 import { Select, SelectProps } from '@mantine/core'
-import React from 'react'
 interface Props extends Omit<SelectProps, 'value'|'onChange'>{
     value?: string,
     onChange: (value: string) => void,

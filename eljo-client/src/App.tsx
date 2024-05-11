@@ -3,11 +3,8 @@ import { Routes } from './Router';
 import { useEffect, useState } from 'react';
 import { LocalstorageKeys } from './enums/enum';
 import { jwtDecode } from 'jwt-decode';
-import { MantineProvider, createTheme } from '@mantine/core';
 
-const theme = createTheme({
-  
-})
+
 
 function App() {
   // const [count, setCount] = useState(0)
