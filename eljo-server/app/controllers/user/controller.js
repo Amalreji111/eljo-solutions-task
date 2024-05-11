@@ -74,7 +74,9 @@ async function login(req,res){
         const token = await generateToken(data)
 
         return Response.success(res,{
-            token
+            token,
+            email:user.email,
+            role:user.role
         })
         
     } catch (error) {
