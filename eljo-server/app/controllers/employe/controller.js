@@ -79,7 +79,7 @@ async function detail(req,res){
 
 }
 
-function update (req,res){
+async function update (req,res){
     try {
         const {
             id,
@@ -121,7 +121,7 @@ function update (req,res){
             })
             
         }
-        let employee = prisma.employeeDetails.findUnique({
+        let employee =await prisma.employeeDetails.findUnique({
             where:{
                 id:Number(id)
             },
@@ -158,7 +158,7 @@ function update (req,res){
         // }
 
         if(email){
-            const user = prisma.user.update({
+            const user =await prisma.user.update({
                 where:{
                     id:employee.user.id
                 },
@@ -168,7 +168,7 @@ function update (req,res){
             })
         }
 
-         employee = prisma.employeeDetails.update({
+         employee =await prisma.employeeDetails.update({
             where:{
                 id:Number(id)
             },

@@ -4,17 +4,21 @@ import Dashboard from "../screens/Dashboard";
 import { ProtectedRoute } from "./ProtectedRoute";
 import Login from "../screens/Login";
 import RegisterEmploye from "../screens/RegisterEmploye";
-export const Path = {
-    HOME: "/home",
-    LOGIN: "/login",
-    REGISTER: "/register"
-}
+import ModifyEmployee from "../screens/ModifyEmployee";
+import { Path } from "../enums/enum";
+
 export const Routes = (IsAuthenticated: boolean) => {
   return [
         {
           path: "/",
           element: <Navigate to={Path.HOME} replace />
         },
+        {
+          path: Path.EDIT_EMPLOYEE + "/:id",
+          element:<ProtectedRoute IsAuthenticated={IsAuthenticated}>
+          <ModifyEmployee/>
+          </ProtectedRoute>
+      },
         {
             path: Path.HOME,
             element:<ProtectedRoute IsAuthenticated={IsAuthenticated}>
@@ -30,7 +34,8 @@ export const Routes = (IsAuthenticated: boolean) => {
             element:<ProtectedRoute IsAuthenticated={IsAuthenticated}>
             <RegisterEmploye/>
             </ProtectedRoute>
-        }
+        },
+     
       ]
 
     }

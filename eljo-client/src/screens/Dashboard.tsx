@@ -1,16 +1,18 @@
-import {  useNavigate } from "react-router-dom"
-import { LocalstorageKeys, UserRole } from "../enums/enum"
-import { Path } from "../Router"
+import { Path, UserRole } from "../enums/enum"
 import { Button, Flex, Table, Text } from "@mantine/core"
 import { Can } from "../components/WithRole"
 import { useEffect, useState } from "react"
-import { employeeDetailResponse, employeeListResponse } from "../Types/api-payload"
+import { employeeDetailResponse } from "../Types/api-payload"
 import { EmployeeApi } from "../Apis/employeeApi"
+import { useNavigate } from "react-router-dom"
+import DepartmentSelect from "../components/Department"
 
 function Dashboard() {
+
   const navigate = useNavigate()
 
   const [employeeList, setEmployeeList] = useState<employeeDetailResponse[]>([])
+  const [department, setDepartment] = useState<string>('')
   const handleLogout = () => {
     localStorage.clear()
     window.location.reload()
@@ -18,19 +20,33 @@ function Dashboard() {
 
   useEffect(() => {
     const getEmployeeList = async () => {
-      const response = await EmployeeApi.getEmployeeList("")
+      const response = await EmployeeApi.getEmployeeList(department)
       setEmployeeList(response?.data??[])
      
     }
     getEmployeeList()
     
-  }, [])
+  }, [department])
 
   const handleEdit = (id:string) => {
+    navigate(`${Path.EDIT_EMPLOYEE}/${id}`)
     console.log(id)
   }
-  const handleDelete = (id:string) => {
-    console.log(id)
+
+  const handleRegisterEmploye = () => {
+    navigate(Path.REGISTER)
+  }
+  const handleDelete =async (id:string) => {
+    if(!id||isNaN(Number(id))){
+      return null;
+    }
+    try {
+      
+      await EmployeeApi.deleteEmployee(id)
+    } catch (error) {
+      console.log(error)
+    }
+    setEmployeeList(employeeList.filter((element) => element.id !== id))
   }
 
   const rows = employeeList.map((element) => (
@@ -41,7 +57,10 @@ function Dashboard() {
       <Table.Td>{element.contactNo}</Table.Td>
       <Table.Td>{element.user.email}</Table.Td>
       <Table.Td>{element.department}</Table.Td>
-      <Table.Td><Button onClick={() => handleEdit(element.id)}> Edit</Button></Table.Td>
+      <Table.Td><Button onClick={(e) => {
+        e.preventDefault()
+        handleEdit(element.id)
+      }}> Edit</Button></Table.Td>
       <Table.Td><Button onClick={() => handleDelete(element.id)}> Delete</Button></Table.Td>
     </Table.Tr>
   ));
@@ -56,14 +75,25 @@ function Dashboard() {
   <Flex direction={"row"}>
     <Can roles={[UserRole.EMPLOYER]}>
 
-   <Button onClick={handleLogout} mr={'10'}>Register</Button>
+   <Button onClick={handleRegisterEmploye} mr={'10'}>Register Employee</Button>
     </Can>
    <Button onClick={handleLogout}>Logout</Button>
   </Flex>
    </Flex>
    <br />
    <br />
+   <DepartmentSelect
+    // value={department}
+    placeholder="Filter by  department"
+    label="Filter by department"
+    w={"20%"}
+    allowDeselect
+    onChange={(e) => {
+      setDepartment(e)
+    }}
+   />
    <br />
+
    <Table stickyHeader stickyHeaderOffset={60}>
       <Table.Thead>
         <Table.Tr>

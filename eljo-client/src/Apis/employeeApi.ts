@@ -1,4 +1,4 @@
-import { employeeListResponse, employeeUpdate } from "../Types/api-payload";
+import { employeeDetailResponse, employeeListResponse, employeeUpdate } from "../Types/api-payload";
 import { API } from "./Api";
 import { Slug } from "./endpoints";
 
@@ -8,11 +8,11 @@ export class EmployeeApi {
     }
 
     public static async getEmployeeDetail(id:string){
-        return await API.get({slug:Slug.DETAIL_EMPLOYEE,queryParameters:{id}})
+        return await API.get<{data:employeeDetailResponse}>({slug:Slug.DETAIL_EMPLOYEE,queryParameters:{id}})
     }
 
     public static async deleteEmployee(id:string){
-        return await API.delete({slug:Slug.DETAIL_EMPLOYEE,queryParameters:{id}})
+        return await API.delete({slug:Slug.DELETE_EMPLOYEE,queryParameters:{id}})
     }
 
     public static async updateEmployee(updateRequest:employeeUpdate){

@@ -9,3 +9,10 @@ export const getConfigValue = <T>(key: string, defaultValue: T): T => {
     // Test the password against the pattern
     return passwordPattern.test(password);
   }
+ export  function validatePhoneNumber(phoneNumber:string):boolean {
+    // Regular expression pattern for phone number validation
+    const phonePattern = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+  
+    // Test the phone number against the pattern
+    return phonePattern.test(phoneNumber);
+  }

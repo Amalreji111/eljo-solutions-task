@@ -40,6 +40,7 @@ function validateEmail(email) {
     return phonePattern.test(phoneNumber);
   }
   function generateEmployeeCode(lastDigit ) {
+    let lastEmployeeCode;
     if (!lastDigit|| isNaN(lastDigit)|| lastDigit < 1) {
       lastEmployeeCode = 1;
     } else {

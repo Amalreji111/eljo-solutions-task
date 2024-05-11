@@ -145,6 +145,16 @@ async function register(req,res){
             password,
             role
         }
+        const user = await prisma.user.findUnique({
+            where:{
+                email
+            }
+        })
+        if(user){
+            return Response.bad_request(res,{
+                message:"User already exists"
+            })
+        }
 
         userEntity = await prisma.user.create({data:userEntity})
 
@@ -155,8 +165,8 @@ async function register(req,res){
             },
             take:1
         })
-
-        const employeeCode =generateEmployeeCode(lastEmployee.at(0)?.employeeCode?.split('-')[2]||0)
+        console.log(+lastEmployee.at(0)?.employeeCode?.split('-')[1])
+        const employeeCode =generateEmployeeCode(+lastEmployee.at(0)?.employeeCode?.split('-')[1]||0)
 
         let employeeDetails ={
 

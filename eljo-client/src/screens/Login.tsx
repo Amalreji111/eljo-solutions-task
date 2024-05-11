@@ -4,7 +4,7 @@ import { validatePassword } from '../utils/utils';
 import { UserApi } from '../Apis/userApi';
 import { LocalstorageKeys } from '../enums/enum';
 import { useNavigate } from 'react-router-dom';
-import { Path } from '../Router';
+import { notifications } from '@mantine/notifications';
 
 function Login() {
   const navigate = useNavigate()
@@ -40,10 +40,15 @@ function Login() {
       window.location.reload()
     //  res
       
-    } catch (error) {
+    } catch (error:any) {
+      notifications.show({
+        color: 'red',
+        message: error?.response?.data?.message??"Something went wrong",
+        w:'300px'
+      })
       console.log(error)
 
-      alert("Invalid Credentials")
+
       
     }
   }

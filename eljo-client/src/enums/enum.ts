@@ -7,3 +7,9 @@ export enum LocalstorageKeys {
     TOKEN = "token",
     email = "email"
 }
+export enum Path  {
+    HOME= "/home",
+    LOGIN= "/login",
+    REGISTER= "/register",
+    EDIT_EMPLOYEE= "/edit-employee",
+}
