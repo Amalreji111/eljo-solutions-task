@@ -53,4 +53,4 @@ export type employeeListRequest = {
   department:string
 }
 
-export type employeeListResponse = employeeDetailResponse[]
+export type employeeListResponse = {data:employeeDetailResponse[]}
