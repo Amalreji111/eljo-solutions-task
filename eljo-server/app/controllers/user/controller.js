@@ -6,6 +6,8 @@ const { Response } = require("../../config/config");
 
 
 
+
+
 async function createAdminAccount(req,res){
     try {
         // console.log("heyy")
@@ -70,13 +72,21 @@ async function login(req,res){
             email:user.email,
             role:user.role
         }
+        const employee = await prisma.employeeDetails.findUnique({
+            where:{
+               userId:user.id
+            }
+        })
 
         const token = await generateToken(data)
 
         return Response.success(res,{
             token,
             email:user.email,
-            role:user.role
+            role:user.role,
+            userId:user.id,
+            employeeId:employee?.id,
+            employeeCode:employee?.employeeCode
         })
         
     } catch (error) {
@@ -97,10 +107,14 @@ async function register(req,res){
             firstName,
             lastName,
             contactNo,
+            file,
             department
         } = req.body
         
         const role = 'employee'
+
+        console.log(req.file,"req.file")
+        // console.log(file,"req.file")
 
         if(!validateEmail(email)){
             return Response.bad_request(res,{
@@ -175,9 +189,11 @@ async function register(req,res){
             lastName,
             contactNo,
             department,
-            userId:userEntity.id
+            userId:userEntity.id,
+            file:req?.file?.buffer
 
         }
+        console.log(file,"file")
 
         employeeDetails = await prisma.employeeDetails.create({data:employeeDetails})
 

@@ -5,7 +5,10 @@ export enum UserRole {
 export enum LocalstorageKeys {
     ROLE = "role",
     TOKEN = "token",
-    email = "email"
+    email = "email",
+    employeeId = "employeeId",
+    userId = "userId",
+    employeeCode = "employeeCode"
 }
 export enum Path  {
     HOME= "/home",

@@ -50,4 +50,23 @@ function validateEmail(email) {
     const code = `ELJO-${lastEmployeeCode}`;
     return code;
   }
-module.exports = {generateToken,decode,validateEmail,validatePassword,validatePhoneNumber,generateEmployeeCode}
+   async function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        resolve("");
+        
+      }
+      const reader = new FileReader();
+      const blob = new Blob([file??'']);
+      reader.readAsDataURL(blob);
+  
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+  
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+module.exports = {generateToken,decode,validateEmail,validatePassword,validatePhoneNumber,generateEmployeeCode,getBase64}

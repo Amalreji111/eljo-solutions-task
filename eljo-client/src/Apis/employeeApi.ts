@@ -15,7 +15,7 @@ export class EmployeeApi {
         return await API.delete({slug:Slug.DELETE_EMPLOYEE,queryParameters:{id}})
     }
 
-    public static async updateEmployee(updateRequest:employeeUpdate){
+    public static async updateEmployee(updateRequest:FormData){
         return await API.put({slug:Slug.UPDATE_EMPLOYEE,body:updateRequest})
     }
 }

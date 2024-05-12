@@ -17,6 +17,7 @@ model EmployeeDetails {
   department    String?
   user   User    @relation(fields: [userId], references: [id])
   userId Int     @unique
+  file Bytes?
 }
 
 model User {

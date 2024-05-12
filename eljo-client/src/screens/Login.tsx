@@ -1,5 +1,5 @@
 import { useForm, isEmail } from '@mantine/form';
-import { Button, Flex, Group, TextInput } from '@mantine/core';
+import { Button, Flex, Group, Text, TextInput } from '@mantine/core';
 import { UserApi } from '../Apis/userApi';
 import { LocalstorageKeys } from '../enums/enum';
 import { notifications } from '@mantine/notifications';
@@ -33,6 +33,10 @@ function Login() {
       localStorage.setItem(LocalstorageKeys.TOKEN,response?.token??"")
       localStorage.setItem(LocalstorageKeys.email,response?.email??'')
       localStorage.setItem(LocalstorageKeys.ROLE,response?.role??'')
+      localStorage.setItem(LocalstorageKeys.userId,response?.userId??'')
+      localStorage.setItem(LocalstorageKeys.employeeId,response?.employeeId??'')
+      localStorage.setItem(LocalstorageKeys.employeeCode,response?.employeeCode??'')
+
       
       window.location.reload()
     //  res
@@ -51,7 +55,8 @@ function Login() {
   }
 
   return (
-    <Flex justify={'center'} align={'center'} w={"100%"}>
+    <Flex direction={'column'}justify={'center'} align={'center'} w={"100%"}>
+      <Text>Eljo Solutions Login</Text>
          <form onSubmit={form.onSubmit(handleSubmit)}>
       <TextInput
         label="Email"

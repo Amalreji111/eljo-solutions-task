@@ -64,9 +64,12 @@ async function detail(req,res){
                  }
              }
          })
-
+         let base64=''
+         if(employee?.file){
+            base64 = Buffer.from(employee?.file).toString('base64')
+         }
          return Response.success(res,{
-            data:employee
+            data:{...employee,file:base64}
          })
             
     } catch (error) {
@@ -152,6 +155,9 @@ async function update (req,res){
        
         if(contactNo){
             data.contactNo=contactNo
+        }
+        if(req.file){
+            data.file=req?.file?.buffer
         }
         // if(department){
         //     data.department=department

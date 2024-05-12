@@ -11,7 +11,8 @@ export type employeeRegister = {
     firstName: string,
     lastName: string,
     contactNo: string,
-    department: string
+    department: string,
+    file?:string
 }
 
 export type employeeUpdate = {
@@ -19,7 +20,8 @@ export type employeeUpdate = {
     firstName: string,
     lastName: string,
     email: string,
-    contactNo: string
+    contactNo: string,
+    file?:string
 }
 
 export type User ={
@@ -31,7 +33,10 @@ role:UserRole
 export type userLoginResponse = {
     token: string;
     email: string;
-    role:UserRole
+    role:UserRole;
+    userId:string;
+    employeeId:string;
+    employeeCode:string;
 }
 
 export type employeeDetailResponse = {
@@ -42,6 +47,7 @@ export type employeeDetailResponse = {
   contactNo:string,
   department:string,
   userId:string,
+  file?:File|string,
   user:User      
 }
 

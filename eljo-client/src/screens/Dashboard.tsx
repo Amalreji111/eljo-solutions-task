@@ -1,11 +1,12 @@
-import { Path, UserRole } from "../enums/enum"
-import { Button, Flex, Table, Text } from "@mantine/core"
+import { LocalstorageKeys, Path, UserRole } from "../enums/enum"
+import { Box, Button, Flex, Table, Text } from "@mantine/core"
 import { Can } from "../components/WithRole"
 import { useEffect, useState } from "react"
 import { employeeDetailResponse } from "../Types/api-payload"
 import { EmployeeApi } from "../Apis/employeeApi"
 import { useNavigate } from "react-router-dom"
 import DepartmentSelect from "../components/Department"
+import ViewEmployee from "./ViewEmployee"
 
 function Dashboard() {
 
@@ -31,6 +32,10 @@ function Dashboard() {
   const handleEdit = (id:string) => {
     navigate(`${Path.EDIT_EMPLOYEE}/${id}`)
     console.log(id)
+  }
+
+  const handleEmployeeEditProfile = () => {
+    navigate(`${Path.EDIT_EMPLOYEE}/${localStorage.getItem(LocalstorageKeys.employeeId)}`)
   }
 
   const handleRegisterEmploye = () => {
@@ -71,8 +76,12 @@ function Dashboard() {
    <>
    <Flex bg={'dark'} style={{width:'100vw',height:'3rem',color:'white'}} justify={"space-between"} align={'center'} direction={"row"}>
     <Text>Eljo Solutions Portal</Text>
+    <Text>Login as {localStorage.getItem(LocalstorageKeys.ROLE)}</Text>
 
   <Flex direction={"row"}>
+  <Can roles={[UserRole.EMPLOYEE]}>
+    <Button mr={'10'} onClick={handleEmployeeEditProfile}>Edit Profile</Button>
+   </Can>
     <Can roles={[UserRole.EMPLOYER]}>
 
    <Button onClick={handleRegisterEmploye} mr={'10'}>Register Employee</Button>
@@ -82,6 +91,12 @@ function Dashboard() {
    </Flex>
    <br />
    <br />
+   <Can roles={[UserRole.EMPLOYEE]}>
+    <ViewEmployee></ViewEmployee>
+   </Can>
+   <Can roles={[UserRole.EMPLOYER]}>
+
+
    <DepartmentSelect
     // value={department}
     placeholder="Filter by  department"
@@ -107,6 +122,7 @@ function Dashboard() {
       </Table.Thead>
       <Table.Tbody>{rows}</Table.Tbody>
     </Table>
+    </Can>
    </>
   )
 }

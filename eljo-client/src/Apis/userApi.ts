@@ -7,7 +7,7 @@ export class UserApi {
     return await API.post<userLoginResponse>({slug:Slug.LOGIN,body:loginRequest})
    }
 
-   public static async registerEmployee(registerRequest:employeeRegister){
+   public static async registerEmployee(registerRequest:FormData){
     return await API.post({slug:Slug.REGISTER_EMPLOYEE,body:registerRequest})
    }
 }
